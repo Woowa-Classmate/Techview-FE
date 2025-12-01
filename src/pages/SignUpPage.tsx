@@ -59,7 +59,7 @@ const SignUpPage = () => {
             회원가입
           </h1>
 
-          <div className="space-y-2 text-xs text-gray-800">
+          <div className="space-y-4 text-xs text-gray-800">
             {/* 학번(아이디) */}
             <div>
               <label className="block mb-2 font-medium">학번 (아이디)</label>
@@ -148,7 +148,7 @@ const SignUpPage = () => {
             <div>
               <label className="block mb-1.5 font-medium">본인의 기술 스택 (중복 선택 가능)</label>
               <div className="space-y-2">
-                <p className="text-xs text-gray-500">
+                <p className="text-[0.6rem] text-gray-500">
                   포지션을 먼저 선택하면 추천 스택이 표시됩니다.
                 </p>
                 <div className="flex flex-wrap gap-2">
