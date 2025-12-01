@@ -1,4 +1,36 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("//fonts.googleapis.com/earlyaccess/hanna.css");
+@import "tailwindcss";
 
+/* 기본 폰트: 전체는 시스템 폰트, 필요한 곳만 font-air로 한나 폰트 사용 */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+.animate-gradient {
+  animation: gradient 6s ease infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}

@@ -2,9 +2,32 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/png" href="/src/assets/logo/techview_favicon.png" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/hanna.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Techview - IT 취준생을 위한 기술 모의면접 서비스</title>
+    <script>
+      // 모든 Service Worker 제거
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister().then(function(success) {
+              if(success) {
+                console.log('Service Worker unregistered');
+              }
+            });
+          }
+        });
+        // 캐시도 모두 삭제
+        if ('caches' in window) {
+          caches.keys().then(function(names) {
+            for (let name of names) {
+              caches.delete(name);
+            }
+          });
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

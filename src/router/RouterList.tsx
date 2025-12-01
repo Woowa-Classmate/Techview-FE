@@ -1,13 +1,31 @@
-import ComponentShowcase from "../pages/ComponentShowcase";
+import { lazy } from "react";
 
-export const routerList = [
+// 페이지 컴포넌트 lazy loading
+const MainPage = lazy(() => import("../pages/MainPage"));
+const LoginPage = lazy(() => import("../pages/LoginPage"));
+const ComponentShowcase = lazy(() => import("../pages/ComponentShowcase"));
+
+export interface RouteConfig {
+  path: string;
+  element: React.ReactElement;
+  label?: string;
+}
+
+export const routerList: RouteConfig[] = [
   {
     path: "/",
-    element: <ComponentShowcase />,
+    element: <MainPage />,
+    label: "메인",
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+    label: "로그인",
   },
   {
     path: "/components",
     element: <ComponentShowcase />,
+    label: "컴포넌트 쇼케이스",
   },
 ];
 
