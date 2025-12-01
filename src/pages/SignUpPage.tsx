@@ -53,16 +53,16 @@ const SignUpPage = () => {
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
-      <main className="flex-1 flex justify-center py-6 px-1 overflow-y-auto">
-        <div className="w-full max-w-md py-4">
-          <h1 className="text-2xl font-medium text-gray-800 mb-4 text-center">
+      <main className="flex flex justify-center py-6 px-1 overflow-y-auto">
+        <div className="w-full max-w-md py-2">
+          <h1 className="text-xl font-medium text-gray-800 mb-4 text-center">
             회원가입
           </h1>
 
-          <div className="space-y-4 text-sm text-gray-800">
+          <div className="space-y-2 text-xs text-gray-800">
             {/* 학번(아이디) */}
             <div>
-              <label className="block mb-1.5 font-medium">학번 (아이디)</label>
+              <label className="block mb-2 font-medium">학번 (아이디)</label>
               <InputBox
                 value={studentId}
                 onChange={(e) => setStudentId(e.target.value)}
