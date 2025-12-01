@@ -16,13 +16,13 @@ const DefaultButton = ({
       onClick={!disabled ? onClick : undefined}
       disabled={disabled}
       className={`
-        w-full max-w-[32rem]
-        rounded-2xl py-5       
-        text-center text-white text-lg font-semibold
+        w-full
+        rounded-xl py-2.5
+        text-center text-white text-sm font-medium
         transition-all duration-200
         ${disabled 
           ? "bg-gray-300 cursor-not-allowed" 
-          : "bg-[#8BC34A] hover:bg-[#7EB73F] active:scale-[0.98]"} 
+          : "bg-[#F4A11A] hover:bg-[#e09010] active:scale-[0.98]"} 
         ${className}
       `}
     >

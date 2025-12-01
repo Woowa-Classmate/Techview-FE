@@ -145,7 +145,7 @@ const Header = () => {
                           </button>
                         ))}
                       </div>
-                      <div className="flex-1 pl-1 flex flex-col gap-2">
+                      <div className="flex-1 pl-1 flex flex-col gap-2 max-h-56 overflow-y-auto pr-1">
                         <p className="mb-1 text-[10px] uppercase tracking-wide text-gray-500">
                           Stack
                         </p>
@@ -204,12 +204,19 @@ const Header = () => {
           </div>
 
           {/* 로그인/회원가입 */}
-          <div className="flex items-center">
+          <div className="flex items-center gap-2 text-sm">
             <Link 
               to="/login" 
               className="text-gray-700 hover:text-gray-900 font-medium transition"
             >
-              로그인 또는 회원 가입
+              로그인
+            </Link>
+            <span className="text-gray-500">또는</span>
+            <Link 
+              to="/signup" 
+              className="text-gray-700 hover:text-gray-900 font-medium transition"
+            >
+              회원가입
             </Link>
           </div>
         </div>

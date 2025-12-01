@@ -13,10 +13,10 @@ const LoginPage = () => {
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
       
-      <main className="flex-1 flex items-center justify-center py-12 px-4">
-        <div className="w-full max-w-md">
+      <main className="flex-1 flex items-center justify-center py-10 px-4">
+        <div className="w-full max-w-sm">
           {/* 제목 */}
-          <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+          <h1 className="text-2xl font-medium text-gray-800 mb-9 text-center">
             로그인
           </h1>
 
@@ -42,7 +42,7 @@ const LoginPage = () => {
                 className="w-full"
               />
               {/* 아이디/비밀번호 찾기 링크 */}
-              <div className="absolute right-0 top-full mt-2 flex gap-3 text-sm text-gray-600">
+              <div className="absolute right-0 top-full mt-4 flex gap-3 text-xs text-gray-600">
                 <Link to="/find-id" className="hover:text-gray-900 transition">
                   아이디 찾기
                 </Link>
@@ -54,7 +54,7 @@ const LoginPage = () => {
             </div>
 
             {/* 로그인 버튼 */}
-            <div className="pt-8">
+            <div className="pt-14">
               <DefaultButton 
                 text="로그인" 
                 onClick={() => {
