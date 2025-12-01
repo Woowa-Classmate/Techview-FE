@@ -2,6 +2,7 @@
   "name": "techview-fe",
   "version": "1.0.0",
   "description": "IT 취준생을 위한 기술 모의면접 서비스",
+  "type": "module",
   "main": "index.js",
   "dependencies": {
     "asynckit": "^0.4.0",
@@ -64,6 +65,7 @@
     "zustand": "^5.0.9"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.17",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
