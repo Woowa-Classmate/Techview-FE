@@ -9,6 +9,8 @@ import SubText from "../components/text/SubText";
 import Title1 from "../components/title/Title1";
 import Title2 from "../components/title/Title2";
 import LoginForm from "../components/login/LoginForm";
+import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
 
 const ComponentShowcase = () => {
   const [checkButtonChecked, setCheckButtonChecked] = useState(false);
@@ -16,8 +18,11 @@ const ComponentShowcase = () => {
   const [inputValue, setInputValue] = useState("");
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 pb-32">
-      <div className="max-w-4xl mx-auto space-y-12">
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <Header />
+
+      <main className="flex-1 py-8 px-4 pb-32">
+        <div className="max-w-4xl mx-auto space-y-12">
         <div className="text-center mb-8">
           <Title1 text="컴포넌트 쇼케이스" />
           <SubText text="프로젝트에서 사용하는 모든 컴포넌트를 확인할 수 있습니다." className="mt-4" />
@@ -143,6 +148,9 @@ const ComponentShowcase = () => {
       <BottomButtonWrapper>
         <DefaultButton text="하단 고정 버튼" onClick={() => alert("하단 버튼 클릭!")} />
       </BottomButtonWrapper>
+      </main>
+
+      <Footer />
     </div>
   );
 };
