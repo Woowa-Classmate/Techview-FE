@@ -53,16 +53,16 @@ const SignUpPage = () => {
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
-      <main className="flex flex justify-center py-6 px-1 overflow-y-auto">
+      <main className="flex justify-center py-4 px-1 overflow-y-auto">
         <div className="w-full max-w-md py-2">
-          <h1 className="text-xl font-medium text-gray-800 mb-4 text-center">
+          <h1 className="text-lg font-medium text-gray-800 mb-3 text-center">
             회원가입
           </h1>
 
-          <div className="space-y-4 text-xs text-gray-800">
+          <div className="space-y-3 text-xs text-gray-800">
             {/* 학번(아이디) */}
             <div>
-              <label className="block mb-2 font-medium">학번 (아이디)</label>
+              <label className="block mb-1 font-medium text-xs">학번 (아이디)</label>
               <InputBox
                 value={studentId}
                 onChange={(e) => setStudentId(e.target.value)}
@@ -73,7 +73,7 @@ const SignUpPage = () => {
 
             {/* 비밀번호 */}
             <div>
-              <label className="block mb-1.5 font-medium">비밀번호</label>
+              <label className="block mb-1 font-medium text-xs">비밀번호</label>
               <InputBox
                 type="password"
                 value={password}
@@ -85,7 +85,7 @@ const SignUpPage = () => {
 
             {/* 비밀번호 확인 */}
             <div>
-              <label className="block mb-1.5 font-medium">비밀번호 확인</label>
+              <label className="block mb-1 font-medium text-xs">비밀번호 확인</label>
               <InputBox
                 type="password"
                 value={passwordCheck}
@@ -98,7 +98,7 @@ const SignUpPage = () => {
 
             {/* 이름 */}
             <div>
-              <label className="block mb-1.5 font-medium">이름</label>
+              <label className="block mb-1 font-medium text-xs">이름</label>
               <InputBox
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -109,7 +109,7 @@ const SignUpPage = () => {
 
             {/* 이메일 */}
             <div>
-              <label className="block mb-1.5 font-medium">이메일</label>
+              <label className="block mb-1 font-medium text-xs">이메일</label>
               <div className="flex items-center gap-2">
                 <div className="flex-1">
                   <InputBox
@@ -125,14 +125,14 @@ const SignUpPage = () => {
 
             {/* 포지션 */}
             <div>
-              <label className="block mb-1.5 font-medium">본인의 포지션</label>
-              <div className="flex flex-wrap gap-2">
+              <label className="block mb-1 font-medium text-xs">본인의 포지션</label>
+              <div className="flex flex-wrap gap-1.5">
                 {positions.map((pos) => (
                   <button
                     key={pos}
                     type="button"
                     onClick={() => setPosition(pos)}
-                    className={`px-3 py-1.5 rounded-full border text-xs transition ${
+                    className={`px-2 py-1 rounded-full border text-[0.7rem] transition ${
                       position === pos
                         ? "bg-gray-900 text-white border-gray-900"
                         : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
@@ -146,12 +146,12 @@ const SignUpPage = () => {
 
             {/* 기술 스택 */}
             <div>
-              <label className="block mb-1.5 font-medium">본인의 기술 스택 (중복 선택 가능)</label>
-              <div className="space-y-2">
+              <label className="block mb-1 font-medium text-xs">본인의 기술 스택 (중복 선택 가능)</label>
+              <div className="space-y-1">
                 <p className="text-[0.6rem] text-gray-500">
                   포지션을 먼저 선택하면 추천 스택이 표시됩니다.
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {(position ? techStacks[position] : Object.values(techStacks).flat()).map(
                     (stack) => {
                       const active = selectedStacks.includes(stack);
@@ -160,7 +160,7 @@ const SignUpPage = () => {
                           key={stack}
                           type="button"
                           onClick={() => toggleStack(stack)}
-                          className={`px-3 py-1 rounded-full border text-xs transition ${
+                          className={`px-2 py-0.5 rounded-full border text-[0.7rem] transition ${
                             active
                               ? "bg-gray-900 text-white border-gray-900"
                               : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
@@ -177,14 +177,14 @@ const SignUpPage = () => {
 
             {/* 학과 */}
             <div>
-              <label className="block mb-1.5 font-medium">학과</label>
-              <div className="flex flex-wrap gap-3">
+              <label className="block mb-1 font-medium text-xs">학과</label>
+              <div className="flex flex-wrap gap-1.5">
                 {departments.map((dept) => (
                   <button
                     key={dept}
                     type="button"
                     onClick={() => setDepartment(dept)}
-                    className={`px-3 py-1.5 rounded-full border text-xs transition ${
+                    className={`px-2 py-1 rounded-full border text-[0.7rem] transition ${
                       department === dept
                         ? "bg-gray-900 text-white border-gray-900"
                         : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
@@ -197,7 +197,7 @@ const SignUpPage = () => {
             </div>
 
             {/* 제출 버튼 */}
-            <div className="pt-2 pb-4">
+            <div className="pt-1 pb-2">
               <DefaultButton text="회원가입" onClick={handleSubmit} />
             </div>
           </div>

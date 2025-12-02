@@ -45,7 +45,7 @@ const InputBox = ({
       maxLength={maxLength}
       className={`
         h-[2.2rem] text-[0.8rem] font-medium
-        flex-1 px-4 py-3 w-full rounded-lg border transition outline-none 
+        flex-1 px-3 py-1.5 w-full rounded-lg border transition outline-none 
          ${textColor} ${bgColor} ${focusColor} ${isError ? 'border-[#FF0000]' : `${borderColor}`}
         disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed  focus:border-[#00C42E]
         ${className}

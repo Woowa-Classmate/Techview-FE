@@ -5,6 +5,8 @@ const MainPage = lazy(() => import("../pages/MainPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
 const SignUpPage = lazy(() => import("../pages/SignUpPage"));
 const ComponentShowcase = lazy(() => import("../pages/ComponentShowcase"));
+const PositionSelectPage = lazy(() => import("../pages/PositionSelectPage"));
+const PositionQuestionPage = lazy(() => import("../pages/PositionQuestionPage"));
 
 export interface RouteConfig {
   path: string;
@@ -32,6 +34,16 @@ export const routerList: RouteConfig[] = [
     path: "/components",
     element: <ComponentShowcase />,
     label: "컴포넌트 쇼케이스",
+  },
+  {
+    path: "/position",
+    element: <PositionSelectPage />,
+    label: "포지션 선택",
+  },
+  {
+    path: "/position/:positionId",
+    element: <PositionQuestionPage />,
+    label: "포지션 질문",
   },
 ];
 
