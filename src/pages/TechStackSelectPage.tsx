@@ -173,7 +173,7 @@ const TechStackSelectPage = () => {
                           className={`
                             flex items-center gap-3 p-4 rounded-lg border-2 transition-all
                             ${isSelected
-                              ? "bg-green-100 text-green-700 border-green-300 shadow-md scale-[1.02]"
+                              ? `${stack.color} border-current shadow-md scale-[1.02]`
                               : "bg-gray-50 border-gray-200 hover:border-gray-300 hover:shadow-sm"
                             }
                           `}
