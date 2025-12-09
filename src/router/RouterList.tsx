@@ -4,6 +4,8 @@ import { lazy } from "react";
 const MainPage = lazy(() => import("../pages/MainPage"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
 const SignUpPage = lazy(() => import("../pages/SignUpPage"));
+const FindIdPage = lazy(() => import("../pages/FindIdPage"));
+const FindPasswordPage = lazy(() => import("../pages/FindPasswordPage"));
 const ComponentShowcase = lazy(() => import("../pages/ComponentShowcase"));
 const PositionSelectPage = lazy(() => import("../pages/PositionSelectPage"));
 const PositionQuestionPage = lazy(() => import("../pages/PositionQuestionPage"));
@@ -31,6 +33,16 @@ export const routerList: RouteConfig[] = [
     path: "/signup",
     element: <SignUpPage />,
     label: "회원가입",
+  },
+  {
+    path: "/find-id",
+    element: <FindIdPage />,
+    label: "아이디 찾기",
+  },
+  {
+    path: "/find-password",
+    element: <FindPasswordPage />,
+    label: "비밀번호 찾기",
   },
   {
     path: "/components",
