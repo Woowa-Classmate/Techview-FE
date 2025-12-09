@@ -50,19 +50,19 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="flex flex-col min-h-screen bg-white">
       <Header />
 
-      <main className="flex justify-center py-4 px-1 overflow-y-auto">
-        <div className="w-full max-w-md py-2">
-          <h1 className="text-lg font-medium text-gray-800 mb-3 text-center">
+      <main className="flex overflow-y-auto justify-center px-1 py-4">
+        <div className="py-2 w-full max-w-md">
+          <h1 className="mb-3 text-lg font-medium text-center text-gray-800">
             회원가입
           </h1>
 
           <div className="space-y-3 text-xs text-gray-800">
             {/* 학번(아이디) */}
             <div>
-              <label className="block mb-1 font-medium text-xs">학번 (아이디)</label>
+              <label className="block mb-1 text-xs font-medium">학번 (아이디)</label>
               <InputBox
                 value={studentId}
                 onChange={(e) => setStudentId(e.target.value)}
@@ -73,7 +73,7 @@ const SignUpPage = () => {
 
             {/* 비밀번호 */}
             <div>
-              <label className="block mb-1 font-medium text-xs">비밀번호</label>
+              <label className="block mb-1 text-xs font-medium">비밀번호</label>
               <InputBox
                 type="password"
                 value={password}
@@ -85,7 +85,7 @@ const SignUpPage = () => {
 
             {/* 비밀번호 확인 */}
             <div>
-              <label className="block mb-1 font-medium text-xs">비밀번호 확인</label>
+              <label className="block mb-1 text-xs font-medium">비밀번호 확인</label>
               <InputBox
                 type="password"
                 value={passwordCheck}
@@ -98,7 +98,7 @@ const SignUpPage = () => {
 
             {/* 이름 */}
             <div>
-              <label className="block mb-1 font-medium text-xs">이름</label>
+              <label className="block mb-1 text-xs font-medium">이름</label>
               <InputBox
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -109,8 +109,8 @@ const SignUpPage = () => {
 
             {/* 이메일 */}
             <div>
-              <label className="block mb-1 font-medium text-xs">이메일</label>
-              <div className="flex items-center gap-2">
+              <label className="block mb-1 text-xs font-medium">이메일</label>
+              <div className="flex gap-2 items-center">
                 <div className="flex-1">
                   <InputBox
                     value={emailLocal}
@@ -119,13 +119,13 @@ const SignUpPage = () => {
                     className="w-full"
                   />
                 </div>
-                <span className="text-gray-700 text-sm">@jbnu.ac.kr</span>
+                <span className="text-sm text-gray-700">@jbnu.ac.kr</span>
               </div>
             </div>
 
             {/* 포지션 */}
             <div>
-              <label className="block mb-1 font-medium text-xs">본인의 포지션</label>
+              <label className="block mb-1 text-xs font-medium">본인의 포지션</label>
               <div className="flex flex-wrap gap-1.5">
                 {positions.map((pos) => (
                   <button
@@ -146,7 +146,7 @@ const SignUpPage = () => {
 
             {/* 기술 스택 */}
             <div>
-              <label className="block mb-1 font-medium text-xs">본인의 기술 스택 (중복 선택 가능)</label>
+              <label className="block mb-1 text-xs font-medium">본인의 기술 스택 (중복 선택 가능)</label>
               <div className="space-y-1">
                 <p className="text-[0.6rem] text-gray-500">
                   포지션을 먼저 선택하면 추천 스택이 표시됩니다.
@@ -177,7 +177,7 @@ const SignUpPage = () => {
 
             {/* 학과 */}
             <div>
-              <label className="block mb-1 font-medium text-xs">학과</label>
+              <label className="block mb-1 text-xs font-medium">학과</label>
               <div className="flex flex-wrap gap-1.5">
                 {departments.map((dept) => (
                   <button
