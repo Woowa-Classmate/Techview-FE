@@ -1,10 +1,10 @@
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-gray-200 mt-0">
-      <div className="max-w-7xl mx-auto px-6 py-6">
-        <div className="text-center text-gray-600 text-sm">
+    <footer className="mt-0 bg-white border-t border-gray-200">
+      <div className="px-6 py-6 mx-auto max-w-7xl">
+        <div className="text-sm text-center text-gray-600">
           <p className="mb-2">
-            <a href="#" className="hover:text-gray-900 transition">
+            <a href="#" className="transition hover:text-gray-900">
               Techview 서비스 표준약관
             </a>
           </p>
