@@ -9,6 +9,8 @@ const PositionSelectPage = lazy(() => import("../pages/PositionSelectPage"));
 const PositionQuestionPage = lazy(() => import("../pages/PositionQuestionPage"));
 const TechStackSelectPage = lazy(() => import("../pages/TechStackSelectPage"));
 const TechStackQuestionPage = lazy(() => import("../pages/TechStackQuestionPage"));
+const InterviewPage = lazy(() => import("../pages/InterviewPage"));
+const InterviewFeedbackPage = lazy(() => import("../pages/InterviewFeedbackPage"));
 
 export interface RouteConfig {
   path: string;
@@ -56,6 +58,16 @@ export const routerList: RouteConfig[] = [
     path: "/tech-stack/questions",
     element: <TechStackQuestionPage />,
     label: "기술 스택 질문",
+  },
+  {
+    path: "/interview/:type/:id",
+    element: <InterviewPage />,
+    label: "면접",
+  },
+  {
+    path: "/interview/feedback",
+    element: <InterviewFeedbackPage />,
+    label: "면접 피드백",
   },
 ];
 
