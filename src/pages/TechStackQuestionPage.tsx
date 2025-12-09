@@ -3,6 +3,8 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 
+const BOOKMARK_KEY = "techview_bookmarks";
+
 const TechStackQuestionPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -11,6 +13,7 @@ const TechStackQuestionPage = () => {
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [selectedQuestionIds, setSelectedQuestionIds] = useState<number[]>([]);
   const [selectedStacks, setSelectedStacks] = useState<string[]>([]);
+  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>([]);
 
   useEffect(() => {
     const stacksParam = searchParams.get("stacks");
@@ -19,11 +22,35 @@ const TechStackQuestionPage = () => {
     }
   }, [searchParams]);
 
+  // 북마크 로드
+  useEffect(() => {
+    const savedBookmarks = localStorage.getItem(BOOKMARK_KEY);
+    if (savedBookmarks) {
+      try {
+        const bookmarks = JSON.parse(savedBookmarks);
+        setBookmarkedIds(bookmarks);
+      } catch (e) {
+        console.error("북마크 로드 실패:", e);
+      }
+    }
+  }, []);
+
+  // 북마크 토글
+  const toggleBookmark = (questionId: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const newBookmarks = bookmarkedIds.includes(questionId)
+      ? bookmarkedIds.filter((id) => id !== questionId)
+      : [...bookmarkedIds, questionId];
+    
+    setBookmarkedIds(newBookmarks);
+    localStorage.setItem(BOOKMARK_KEY, JSON.stringify(newBookmarks));
+  };
+
   const handleStartInterview = () => {
     // 선택한 질문 ID들을 쿼리 파라미터로 전달
     const questionIds = selectedQuestionIds.join(",");
     const stacksParam = selectedStacks.join(",");
-    navigate(`/tech-stack/interview?stacks=${stacksParam}&questions=${questionIds}`);
+    navigate(`/interview/tech-stack/tech-stack?stacks=${stacksParam}&questions=${questionIds}`);
   };
 
   const stackNames: Record<string, string> = {
@@ -341,15 +368,14 @@ const TechStackQuestionPage = () => {
                         </div>
                       </div>
                       <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          // 북마크 기능
-                        }}
-                        className="p-2 ml-4 rounded transition hover:bg-gray-100"
+                        onClick={(e) => toggleBookmark(q.id, e)}
+                        className={`p-2 ml-4 rounded transition hover:bg-gray-100 ${
+                          bookmarkedIds.includes(q.id) ? "text-yellow-500" : "text-gray-400"
+                        }`}
                       >
                         <svg
-                          className="w-5 h-5 text-gray-400"
-                          fill="none"
+                          className="w-5 h-5"
+                          fill={bookmarkedIds.includes(q.id) ? "currentColor" : "none"}
                           stroke="currentColor"
                           viewBox="0 0 24 24"
                         >
