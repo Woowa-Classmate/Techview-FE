@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
+
+const BOOKMARK_KEY = "techview_bookmarks";
 
 const PositionQuestionPage = () => {
   const { positionId } = useParams<{ positionId: string }>();
@@ -10,11 +12,36 @@ const PositionQuestionPage = () => {
   const [sortBy, setSortBy] = useState<string>("difficulty-low");
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [selectedQuestionIds, setSelectedQuestionIds] = useState<number[]>([]);
+  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>([]);
+
+  // 북마크 로드
+  useEffect(() => {
+    const savedBookmarks = localStorage.getItem(BOOKMARK_KEY);
+    if (savedBookmarks) {
+      try {
+        const bookmarks = JSON.parse(savedBookmarks);
+        setBookmarkedIds(bookmarks);
+      } catch (e) {
+        console.error("북마크 로드 실패:", e);
+      }
+    }
+  }, []);
+
+  // 북마크 토글
+  const toggleBookmark = (questionId: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const newBookmarks = bookmarkedIds.includes(questionId)
+      ? bookmarkedIds.filter((id) => id !== questionId)
+      : [...bookmarkedIds, questionId];
+    
+    setBookmarkedIds(newBookmarks);
+    localStorage.setItem(BOOKMARK_KEY, JSON.stringify(newBookmarks));
+  };
 
   const handleStartInterview = () => {
     // 선택한 질문 ID들을 쿼리 파라미터로 전달
     const questionIds = selectedQuestionIds.join(",");
-    navigate(`/interview/${positionId}?questions=${questionIds}`);
+    navigate(`/interview/position/${positionId}?questions=${questionIds}`);
   };
 
   const positionNames: Record<string, string> = {
@@ -181,15 +208,14 @@ const PositionQuestionPage = () => {
                     </div>
                   </div>
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      // 북마크 기능
-                    }}
-                    className="ml-4 p-2 hover:bg-gray-100 rounded transition"
+                    onClick={(e) => toggleBookmark(q.id, e)}
+                    className={`ml-4 p-2 hover:bg-gray-100 rounded transition ${
+                      bookmarkedIds.includes(q.id) ? "text-yellow-500" : "text-gray-400"
+                    }`}
                   >
                     <svg
-                      className="w-5 h-5 text-gray-400"
-                      fill="none"
+                      className="w-5 h-5"
+                      fill={bookmarkedIds.includes(q.id) ? "currentColor" : "none"}
                       stroke="currentColor"
                       viewBox="0 0 24 24"
                     >

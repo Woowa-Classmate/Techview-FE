@@ -5,18 +5,18 @@ const Header = () => {
 
   return (
     <header className="bg-white border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between gap-6">
+      <div className="px-6 py-4 mx-auto max-w-7xl">
+        <div className="flex gap-6 justify-between items-center">
           {/* 로고 + 네비게이션 메뉴 */}
           <div className="flex items-center gap-17">
             <Link to="/" className="flex items-center">
               <img 
                 src={techviewLogo} 
                 alt="TECHVIEW" 
-                className="h-6 object-contain"
+                className="object-contain h-6"
               />
             </Link>
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="hidden gap-6 items-center md:flex">
               <Link
                 to="/position"
                 className="text-gray-700 hover:text-gray-900 text-[1rem] font-medium transition"
@@ -24,7 +24,7 @@ const Header = () => {
                 Position Select
               </Link>
               <Link
-                to="/tech"
+                to="/tech-stack"
                 className="text-gray-700 hover:text-gray-900 text-[1rem] font-medium transition"
               >
                 Tech Select
@@ -39,9 +39,9 @@ const Header = () => {
           </div>
 
           {/* 검색창 + 로그인/회원가입 */}
-          <div className="flex items-center gap-6">
+          <div className="flex gap-6 items-center">
             {/* 검색창 */}
-            <div className="hidden sm:flex items-center">
+            <div className="hidden items-center sm:flex">
               <input
                 type="text"
                 placeholder="Search"
@@ -49,17 +49,17 @@ const Header = () => {
               />
             </div>
             {/* 로그인/회원가입 */}
-            <div className="flex items-center gap-2 text-sm">
+            <div className="flex gap-2 items-center text-sm">
               <Link 
                 to="/login" 
-                className="text-gray-700 hover:text-gray-900 font-medium transition"
+                className="font-medium text-gray-700 transition hover:text-gray-900"
               >
                 로그인
               </Link>
               <span className="text-gray-500">또는</span>
               <Link 
                 to="/signup" 
-                className="text-gray-700 hover:text-gray-900 font-medium transition"
+                className="font-medium text-gray-700 transition hover:text-gray-900"
               >
                 회원가입
               </Link>
