@@ -41,6 +41,8 @@ export const routerList: RouteConfig[] = [
     path: "/about",
     element: <AboutPage />,
     label: "About",
+  },
+  {
     path: "/find-id",
     element: <FindIdPage />,
     label: "아이디 찾기",
