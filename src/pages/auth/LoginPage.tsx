@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
-import InputBox from "../components/input/InputBox";
-import DefaultButton from "../components/button/DefaultButton";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import InputBox from "@/components/input/InputBox";
+import DefaultButton from "@/components/button/DefaultButton";
 
 const LoginPage = () => {
   const [id, setId] = useState("");

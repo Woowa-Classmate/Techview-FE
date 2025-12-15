@@ -1,16 +1,16 @@
 import { useState } from "react";
-import DefaultButton from "../components/button/DefaultButton";
-import CheckButton from "../components/button/CheckButton";
-import IconButton from "../components/button/IconButton";
-import ToggleSwitchBtn from "../components/button/ToggleSwitchBtn";
-import BottomButtonWrapper from "../components/button/BottomButtonWrapper";
-import InputBox from "../components/input/InputBox";
-import SubText from "../components/text/SubText";
-import Title1 from "../components/title/Title1";
-import Title2 from "../components/title/Title2";
-import LoginForm from "../components/login/LoginForm";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
+import DefaultButton from "@/components/button/DefaultButton";
+import CheckButton from "@/components/button/CheckButton";
+import IconButton from "@/components/button/IconButton";
+import ToggleSwitchBtn from "@/components/button/ToggleSwitchBtn";
+import BottomButtonWrapper from "@/components/button/BottomButtonWrapper";
+import InputBox from "@/components/input/InputBox";
+import SubText from "@/components/text/SubText";
+import Title1 from "@/components/title/Title1";
+import Title2 from "@/components/title/Title2";
+import LoginForm from "@/components/login/LoginForm";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 const ComponentShowcase = () => {
   const [checkButtonChecked, setCheckButtonChecked] = useState(false);
@@ -18,19 +18,19 @@ const ComponentShowcase = () => {
   const [inputValue, setInputValue] = useState("");
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
 
-      <main className="flex-1 py-8 px-4 pb-32">
-        <div className="max-w-4xl mx-auto space-y-12">
-        <div className="text-center mb-8">
+      <main className="flex-1 px-4 py-8 pb-32">
+        <div className="mx-auto space-y-12 max-w-4xl">
+        <div className="mb-8 text-center">
           <Title1 text="컴포넌트 쇼케이스" />
           <SubText text="프로젝트에서 사용하는 모든 컴포넌트를 확인할 수 있습니다." className="mt-4" />
         </div>
 
         {/* Title 컴포넌트 */}
-        <section className="bg-white p-6 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">Title 컴포넌트</h2>
+        <section className="p-6 bg-white rounded-lg shadow-sm">
+          <h2 className="mb-4 text-2xl font-bold text-gray-800">Title 컴포넌트</h2>
           <div className="space-y-4">
             <Title1 text="Title1 컴포넌트 예시" />
             <Title2 text="Title2 컴포넌트 예시" />
@@ -38,17 +38,17 @@ const ComponentShowcase = () => {
         </section>
 
         {/* Text 컴포넌트 */}
-        <section className="bg-white p-6 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">Text 컴포넌트</h2>
+        <section className="p-6 bg-white rounded-lg shadow-sm">
+          <h2 className="mb-4 text-2xl font-bold text-gray-800">Text 컴포넌트</h2>
           <SubText text="SubText 컴포넌트 예시입니다. 회색 텍스트로 표시됩니다." />
         </section>
 
         {/* Button 컴포넌트 */}
-        <section className="bg-white p-6 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">Button 컴포넌트</h2>
+        <section className="p-6 bg-white rounded-lg shadow-sm">
+          <h2 className="mb-4 text-2xl font-bold text-gray-800">Button 컴포넌트</h2>
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold mb-2">DefaultButton</h3>
+              <h3 className="mb-2 text-lg font-semibold">DefaultButton</h3>
               <div className="space-y-2">
                 <DefaultButton text="기본 버튼" onClick={() => alert("클릭됨!")} />
                 <DefaultButton text="비활성 버튼" disabled />
@@ -56,8 +56,8 @@ const ComponentShowcase = () => {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-2">CheckButton</h3>
-              <div className="flex items-center gap-4">
+              <h3 className="mb-2 text-lg font-semibold">CheckButton</h3>
+              <div className="flex gap-4 items-center">
                 <CheckButton 
                   checked={checkButtonChecked} 
                   onChange={setCheckButtonChecked}
@@ -67,7 +67,7 @@ const ComponentShowcase = () => {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-2">IconButton</h3>
+              <h3 className="mb-2 text-lg font-semibold">IconButton</h3>
               <IconButton 
                 src="https://via.placeholder.com/40" 
                 alt="아이콘" 
@@ -78,7 +78,7 @@ const ComponentShowcase = () => {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-2">ToggleSwitchBtn</h3>
+              <h3 className="mb-2 text-lg font-semibold">ToggleSwitchBtn</h3>
               <ToggleSwitchBtn 
                 label="알림 설정" 
                 checked={toggleChecked} 
@@ -89,17 +89,17 @@ const ComponentShowcase = () => {
         </section>
 
         {/* Input 컴포넌트 */}
-        <section className="bg-white p-6 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">Input 컴포넌트</h2>
+        <section className="p-6 bg-white rounded-lg shadow-sm">
+          <h2 className="mb-4 text-2xl font-bold text-gray-800">Input 컴포넌트</h2>
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg font-semibold mb-2">InputBox</h3>
+              <h3 className="mb-2 text-lg font-semibold">InputBox</h3>
               <InputBox 
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="입력하세요"
               />
-              <p className="text-sm text-gray-500 mt-2">입력값: {inputValue}</p>
+              <p className="mt-2 text-sm text-gray-500">입력값: {inputValue}</p>
             </div>
             <div>
               <InputBox 
@@ -123,18 +123,18 @@ const ComponentShowcase = () => {
         </section>
 
         {/* Login 컴포넌트 */}
-        <section className="bg-white p-6 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">Login 컴포넌트</h2>
+        <section className="p-6 bg-white rounded-lg shadow-sm">
+          <h2 className="mb-4 text-2xl font-bold text-gray-800">Login 컴포넌트</h2>
           <LoginForm />
         </section>
 
         {/* SignUp 컴포넌트 - API/모달 의존성으로 인해 주석 처리 */}
-        <section className="bg-white p-6 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">SignUp 컴포넌트</h2>
-          <div className="text-gray-500 text-center py-8">
+        <section className="p-6 bg-white rounded-lg shadow-sm">
+          <h2 className="mb-4 text-2xl font-bold text-gray-800">SignUp 컴포넌트</h2>
+          <div className="py-8 text-center text-gray-500">
             <p>SignUp 컴포넌트들은 API 및 모달 컴포넌트 의존성이 있어</p>
             <p>실제 페이지에서 확인해주세요.</p>
-            <div className="mt-4 text-left space-y-2 text-sm">
+            <div className="mt-4 space-y-2 text-sm text-left">
               <p>• EmailVerification - 이메일 인증 컴포넌트</p>
               <p>• PasswordFields - 비밀번호 입력 컴포넌트</p>
               <p>• BirthInput - 생년월일 입력 컴포넌트</p>

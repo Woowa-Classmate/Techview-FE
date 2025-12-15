@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 interface Question {
   id: number;
@@ -316,8 +316,40 @@ const InterviewPage = () => {
       questionTimerRef.current = null;
     }
     
-    // AI 피드백 요청
-    navigate(`/interview/feedback?type=${type}&id=${id}&questions=${questionIds.join(",")}`);
+    // 세션 ID 생성
+    const sessionId = `session_${Date.now()}`;
+    
+    // 선택한 질문들에 대한 면접 기록 생성
+    const interviewRecords = questions.map((q, index) => {
+      const duration = Math.floor(Math.random() * 60) + 10; // 10-70초 랜덤
+      const isFailed = duration < 10;
+      
+      return {
+        id: `${sessionId}_${q.id}`,
+        sessionId: sessionId,
+        type: type || "position",
+        positionId: type === "position" ? id : undefined,
+        stacks: type === "tech-stack" ? (id ? [id] : []) : undefined,
+        questionIds: [q.id],
+        question: q.question,
+        date: new Date().toLocaleString("ko-KR", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+        duration: duration,
+        status: isFailed ? ("failed" as const) : ("success" as const),
+        failureReason: isFailed ? "10초 미만의 영상은 분석이 불가능합니다." : undefined,
+      };
+    });
+    
+    // localStorage에 저장
+    localStorage.setItem(`interview_session_${sessionId}`, JSON.stringify(interviewRecords));
+    
+    // 면접 목록 페이지로 이동 (세션 ID 포함)
+    navigate(`/interview/list?sessionId=${sessionId}`);
   };
 
   // 시간 포맷팅

@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
-import FEImage from "../assets/position/FE.png";
-import SEL_FEImage from "../assets/position/SEL_FE.png";
-import BEImage from "../assets/position/BE.png";
-import SEL_BEImage from "../assets/position/SEL_BE.png";
-import ANDImage from "../assets/position/AND.png";
-import SEL_ANDImage from "../assets/position/SEL_AND.png";
-import IOSImage from "../assets/position/IOS.png";
-import SEL_IOSImage from "../assets/position/SEL_IOS.png";
-import DEVImage from "../assets/position/DEV.png";
-import SEL_DEVImage from "../assets/position/SEL_DEV.png";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import FEImage from "@/assets/position/FE.png";
+import SEL_FEImage from "@/assets/position/SEL_FE.png";
+import BEImage from "@/assets/position/BE.png";
+import SEL_BEImage from "@/assets/position/SEL_BE.png";
+import ANDImage from "@/assets/position/AND.png";
+import SEL_ANDImage from "@/assets/position/SEL_AND.png";
+import IOSImage from "@/assets/position/IOS.png";
+import SEL_IOSImage from "@/assets/position/SEL_IOS.png";
+import DEVImage from "@/assets/position/DEV.png";
+import SEL_DEVImage from "@/assets/position/SEL_DEV.png";
 
 const PositionSelectPage = () => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
