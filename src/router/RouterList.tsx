@@ -4,6 +4,7 @@ import { lazy } from "react";
 // Main
 const MainPage = lazy(() => import("@/pages/main/MainPage"));
 const AboutPage = lazy(() => import("@/pages/main/AboutPage"));
+const MyPage = lazy(() => import("@/pages/main/MyPage"));
 
 // Auth
 const LoginPage = lazy(() => import("@/pages/auth/LoginPage"));
@@ -14,8 +15,6 @@ const FindPasswordPage = lazy(() => import("@/pages/auth/FindPasswordPage"));
 // Interview
 const PositionSelectPage = lazy(() => import("@/pages/interview/PositionSelectPage"));
 const PositionQuestionPage = lazy(() => import("@/pages/interview/PositionQuestionPage"));
-const TechStackSelectPage = lazy(() => import("@/pages/interview/TechStackSelectPage"));
-const TechStackQuestionPage = lazy(() => import("@/pages/interview/TechStackQuestionPage"));
 const InterviewPage = lazy(() => import("@/pages/interview/InterviewPage"));
 const InterviewFeedbackPage = lazy(() => import("@/pages/interview/InterviewFeedbackPage"));
 const InterviewListPage = lazy(() => import("@/pages/interview/InterviewListPage"));
@@ -79,16 +78,6 @@ export const routerList: RouteConfig[] = [
     label: "포지션 질문",
   },
   {
-    path: "/tech-stack",
-    element: <TechStackSelectPage />,
-    label: "기술 스택 선택",
-  },
-  {
-    path: "/tech-stack/questions",
-    element: <TechStackQuestionPage />,
-    label: "기술 스택 질문",
-  },
-  {
     path: "/interview/:type/:id",
     element: <InterviewPage />,
     label: "면접",
@@ -107,6 +96,11 @@ export const routerList: RouteConfig[] = [
     path: "/board",
     element: <BoardPage />,
     label: "게시판",
+  },
+  {
+    path: "/mypage",
+    element: <MyPage />,
+    label: "마이페이지",
   },
 ];
 
