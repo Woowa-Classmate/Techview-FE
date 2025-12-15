@@ -1,20 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
-import InputBox from "../components/input/InputBox";
-import DefaultButton from "../components/button/DefaultButton";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import InputBox from "@/components/input/InputBox";
+import DefaultButton from "@/components/button/DefaultButton";
 
-const FindPasswordPage = () => {
+const FindIdPage = () => {
   const navigate = useNavigate();
-  const [id, setId] = useState("");
   const [emailLocal, setEmailLocal] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
 
   const handleSendEmail = () => {
-    console.log("비밀번호 초기화 인증번호 발송:", { id, email: emailLocal });
+    console.log("아이디 찾기 인증번호 발송:", emailLocal);
     // TODO: 실제 API 호출
     setIsEmailSent(true);
     alert(`${emailLocal}@jbnu.ac.kr로 인증번호를 발송했습니다.`);
@@ -25,8 +24,8 @@ const FindPasswordPage = () => {
     // TODO: 실제 API 호출로 인증번호 확인
     if (verificationCode.length === 6) {
       setIsVerified(true);
-      alert("인증이 완료되었습니다. 비밀번호 초기화 메일을 발송합니다.");
-      // TODO: 인증 완료 후 비밀번호 초기화 메일 발송
+      alert("인증이 완료되었습니다. 아이디 정보를 확인하세요.");
+      // TODO: 인증 완료 후 아이디 표시 또는 다음 단계로 이동
     } else {
       alert("인증번호를 올바르게 입력해주세요.");
     }
@@ -40,23 +39,11 @@ const FindPasswordPage = () => {
         <div className="w-full max-w-sm">
           {/* 제목 */}
           <h1 className="text-2xl font-medium text-gray-800 mb-9 text-center">
-            비밀번호 초기화
+            아이디 찾기
           </h1>
 
           {/* 폼 */}
           <div className="space-y-4">
-            {/* 아이디 입력 */}
-            <div>
-              <label className="block mb-1 font-medium text-xs text-gray-800">아이디</label>
-              <InputBox
-                value={id}
-                onChange={(e) => setId(e.target.value)}
-                placeholder="아이디를 입력해 주세요"
-                className="w-full"
-                disabled={isEmailSent}
-              />
-            </div>
-
             {/* 이메일 입력 */}
             <div>
               <label className="block mb-1 font-medium text-xs text-gray-800">이메일</label>
@@ -104,14 +91,15 @@ const FindPasswordPage = () => {
               </div>
             )}
 
-            {/* 인증 완료 후 메시지 */}
+            {/* 인증 완료 후 아이디 표시 영역 */}
             {isVerified && (
               <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-600">
-                  인증이 완료되었습니다. 비밀번호 초기화 메일을 발송했습니다.
+                <p className="text-sm text-gray-600 mb-2">인증이 완료되었습니다.</p>
+                <p className="text-sm font-medium text-gray-800">
+                  아이디: <span className="text-blue-600">user123</span>
                 </p>
                 <p className="text-xs text-gray-500 mt-2">
-                  {emailLocal}@jbnu.ac.kr로 비밀번호 초기화 링크를 확인해주세요.
+                  (실제로는 서버에서 조회한 아이디가 표시됩니다)
                 </p>
               </div>
             )}
@@ -134,5 +122,5 @@ const FindPasswordPage = () => {
   );
 };
 
-export default FindPasswordPage;
+export default FindIdPage;
 

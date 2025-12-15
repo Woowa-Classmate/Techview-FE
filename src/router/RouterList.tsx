@@ -1,19 +1,30 @@
 import { lazy } from "react";
 
 // 페이지 컴포넌트 lazy loading
-const MainPage = lazy(() => import("../pages/MainPage"));
-const LoginPage = lazy(() => import("../pages/LoginPage"));
-const SignUpPage = lazy(() => import("../pages/SignUpPage"));
-const AboutPage = lazy(() => import("../pages/AboutPage"));
-const FindIdPage = lazy(() => import("../pages/FindIdPage"));
-const FindPasswordPage = lazy(() => import("../pages/FindPasswordPage"));
-const ComponentShowcase = lazy(() => import("../pages/ComponentShowcase"));
-const PositionSelectPage = lazy(() => import("../pages/PositionSelectPage"));
-const PositionQuestionPage = lazy(() => import("../pages/PositionQuestionPage"));
-const TechStackSelectPage = lazy(() => import("../pages/TechStackSelectPage"));
-const TechStackQuestionPage = lazy(() => import("../pages/TechStackQuestionPage"));
-const InterviewPage = lazy(() => import("../pages/InterviewPage"));
-const InterviewFeedbackPage = lazy(() => import("../pages/InterviewFeedbackPage"));
+// Main
+const MainPage = lazy(() => import("@/pages/main/MainPage"));
+const AboutPage = lazy(() => import("@/pages/main/AboutPage"));
+
+// Auth
+const LoginPage = lazy(() => import("@/pages/auth/LoginPage"));
+const SignUpPage = lazy(() => import("@/pages/auth/SignUpPage"));
+const FindIdPage = lazy(() => import("@/pages/auth/FindIdPage"));
+const FindPasswordPage = lazy(() => import("@/pages/auth/FindPasswordPage"));
+
+// Interview
+const PositionSelectPage = lazy(() => import("@/pages/interview/PositionSelectPage"));
+const PositionQuestionPage = lazy(() => import("@/pages/interview/PositionQuestionPage"));
+const TechStackSelectPage = lazy(() => import("@/pages/interview/TechStackSelectPage"));
+const TechStackQuestionPage = lazy(() => import("@/pages/interview/TechStackQuestionPage"));
+const InterviewPage = lazy(() => import("@/pages/interview/InterviewPage"));
+const InterviewFeedbackPage = lazy(() => import("@/pages/interview/InterviewFeedbackPage"));
+const InterviewListPage = lazy(() => import("@/pages/interview/InterviewListPage"));
+
+// Board
+const BoardPage = lazy(() => import("@/pages/board/BoardPage"));
+
+// Dev
+const ComponentShowcase = lazy(() => import("@/pages/dev/ComponentShowcase"));
 
 export interface RouteConfig {
   path: string;
@@ -41,6 +52,8 @@ export const routerList: RouteConfig[] = [
     path: "/about",
     element: <AboutPage />,
     label: "About",
+  },
+  {
     path: "/find-id",
     element: <FindIdPage />,
     label: "아이디 찾기",
@@ -84,6 +97,16 @@ export const routerList: RouteConfig[] = [
     path: "/interview/feedback",
     element: <InterviewFeedbackPage />,
     label: "면접 피드백",
+  },
+  {
+    path: "/interview/list",
+    element: <InterviewListPage />,
+    label: "면접 목록",
+  },
+  {
+    path: "/board",
+    element: <BoardPage />,
+    label: "게시판",
   },
 ];
 

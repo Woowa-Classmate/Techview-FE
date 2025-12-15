@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
-import InputBox from "../components/input/InputBox";
-import DefaultButton from "../components/button/DefaultButton";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import InputBox from "@/components/input/InputBox";
+import DefaultButton from "@/components/button/DefaultButton";
 
 const positions = ["Frontend", "Backend", "Android", "iOS", "DevOps"] as const;
 type Position = (typeof positions)[number];

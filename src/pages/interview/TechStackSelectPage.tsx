@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
-import CheckButton from "../components/button/CheckButton";
-import DefaultButton from "../components/button/DefaultButton";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import CheckButton from "@/components/button/CheckButton";
+import DefaultButton from "@/components/button/DefaultButton";
 
 interface TechStack {
   id: string;
