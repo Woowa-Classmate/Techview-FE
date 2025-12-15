@@ -12,6 +12,7 @@ interface InputBoxProps {
   maxLength? : number,
   isReadOnly?: boolean,
   onClick?: React.MouseEventHandler<HTMLInputElement> | undefined,
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void,
   className?: string,
   
   isError?: boolean, // isError 에러 발생시 true
@@ -30,6 +31,7 @@ const InputBox = ({
   maxLength,
   isReadOnly = false,
   onClick,
+  onKeyDown,
   className,
   isError = false,
 }: InputBoxProps) => {
@@ -39,6 +41,7 @@ const InputBox = ({
       value={value}
       onChange={onChange}
       onClick={onClick}
+      onKeyDown={onKeyDown}
       readOnly={isReadOnly}
       placeholder={placeholder}
       disabled={disabled}
