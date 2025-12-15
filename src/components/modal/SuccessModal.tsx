@@ -18,35 +18,36 @@ const SuccessModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div className="w-full max-w-sm rounded-2xl bg-white shadow-2xl border border-gray-100 p-6 animate-fade-in">
-        <div className="flex items-start gap-3">
-          <div className="mt-1 flex h-9 w-9 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
-            {/* check icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-          <div className="flex-1">
-            <h2 className="text-base font-semibold text-gray-900 mb-1">{title}</h2>
-            <p className="text-sm leading-relaxed text-gray-600 whitespace-pre-line">
+    <div className="flex fixed inset-0 z-50 justify-center items-center bg-black/30 animate-fade-in">
+      <div className="mx-4 w-full max-w-sm">
+        <div className="p-6 bg-white rounded-lg border border-gray-200 shadow-lg">
+          {/* 아이콘과 제목 */}
+          <div className="mb-4 text-center">
+            <div className="inline-flex justify-center items-center mb-3 w-12 h-12 bg-green-100 rounded-full">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                className="w-6 h-6 text-green-600"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h2 className="mb-2 text-lg font-semibold text-gray-900">{title}</h2>
+            <p className="text-sm text-gray-600 whitespace-pre-line">
               {message}
             </p>
           </div>
-        </div>
 
-        <div className="mt-5 flex justify-end">
+          {/* 버튼 */}
           <button
             type="button"
             onClick={onConfirm}
-            className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-4 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-1 transition"
+            className="w-full py-2.5 px-4 rounded-xl bg-amber-500 text-white font-medium text-sm hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-colors"
           >
             {confirmText}
           </button>
