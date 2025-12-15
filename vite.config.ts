@@ -9,6 +9,14 @@ export default defineConfig({
   server: {
     port: 80,
     strictPort: false,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false,
+        ws: true, // WebSocket 지원
+      },
+    },
   },
   resolve: {
     alias: {
