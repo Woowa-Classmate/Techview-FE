@@ -30,14 +30,30 @@ const Header = () => {
                 Tech Select
               </Link>
               <Link
+                to="/board"
+                className="text-gray-700 hover:text-gray-900 text-[1rem] font-medium transition"
+              >
+                Community
+              </Link>
+              <a
+                href="https://jbnu.copykiller.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 hover:text-gray-900 text-[1rem] font-medium transition"
+              >
+                CopyKiller
+              </a>
+              <Link
                 to="/about"
                 className="text-gray-700 hover:text-gray-900 text-[1rem] font-medium transition"
               >
                 About
               </Link>
             </nav>
+            
           </div>
 
+          
           {/* 검색창 + 로그인/회원가입 */}
           <div className="flex gap-6 items-center">
             {/* 검색창 */}
