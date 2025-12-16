@@ -25,6 +25,10 @@ const BoardPage = lazy(() => import("@/pages/board/BoardPage"));
 // Dev
 const ComponentShowcase = lazy(() => import("@/pages/dev/ComponentShowcase"));
 
+// Admin
+const AdminPage = lazy(() => import("@/pages/admin/AdminView"));
+const AdminLoginPage = lazy(() => import("@/pages/admin/AdminLoginView"));
+
 export interface RouteConfig {
   path: string;
   element: React.ReactElement;
@@ -101,6 +105,16 @@ export const routerList: RouteConfig[] = [
     path: "/mypage",
     element: <MyPage />,
     label: "마이페이지",
+  },
+  {
+    path: "/admin/login",
+    element: <AdminLoginPage />,
+    label: "관리자 로그인",
+  },
+  {
+    path: "/admin",
+    element: <AdminPage />,
+    label: "관리자",
   },
 ];
 
