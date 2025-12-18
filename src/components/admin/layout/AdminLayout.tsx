@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { useAdminHeader } from '@/contexts/AdminHeaderContext'
 import { TopBar } from './TopBar'
 import { AppSidebar } from './AppSidebar'
-import { DashboardIcon, ShoppingBagIcon, UsersIcon, ActivityIcon } from './AppSidebar'
+import { UsersIcon, ActivityIcon, MissionIcon } from './AppSidebar'
 
 interface AdminLayoutProps {
   children?: ReactNode
@@ -15,17 +15,17 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   const { actions } = useAdminHeader()
 
   const currentPageTitle = () => {
-    if (location.pathname.includes('/cards')) return '카드'
     if (location.pathname.includes('/users')) return '사용자'
+    if (location.pathname.includes('/cards')) return '미션'
     if (location.pathname.includes('/behavior')) return '고객 행동 분석'
-    return '소비 패턴 분석'
+    return '미션'
   }
 
   const currentPageIcon = () => {
-    if (location.pathname.includes('/cards')) return ShoppingBagIcon
     if (location.pathname.includes('/users')) return UsersIcon
+    if (location.pathname.includes('/cards')) return MissionIcon
     if (location.pathname.includes('/behavior')) return ActivityIcon
-    return DashboardIcon
+    return MissionIcon
   }
 
   const showActionButtons = location.pathname.includes('/cards') || location.pathname.includes('/users')
@@ -37,7 +37,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
 
       <div 
         className={`flex-1 flex flex-col transition-all duration-300 ${
-          sidebarOpen ? 'ml-64' : 'ml-0'
+          sidebarOpen ? 'ml-56' : 'ml-0'
         }`}
       >
         <TopBar
