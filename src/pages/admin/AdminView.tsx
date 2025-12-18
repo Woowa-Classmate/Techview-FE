@@ -1,10 +1,10 @@
 import { useLocation, Navigate } from 'react-router-dom';
 import { AdminHeaderProvider } from '@/contexts/AdminHeaderContext';
 import AdminLayout from '@/components/admin/layout/AdminLayout';
-import { MissionManagement } from '@/components/admin/management/MissionManagement';
 import { UserManagement } from '@/components/admin/management/UserManagement';
 import { BoardManagement } from '@/components/admin/management/BoardManagement';
 import { BehaviorAnalysis } from '@/components/admin/management/BehaviorAnalysis';
+import { MissionManagement } from '@/components/admin/management/MissionManagement';
 
 const AdminView = () => {
   const location = useLocation();

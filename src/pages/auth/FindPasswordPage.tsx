@@ -4,13 +4,13 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import InputBox from "@/components/input/InputBox";
 import DefaultButton from "@/components/button/DefaultButton";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuthStore } from "@/stores/authStore";
 import * as authApi from "@/api/auth";
 import { isValidPassword } from "@/utils/validation";
 
 const FindPasswordPage = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordCheck, setNewPasswordCheck] = useState("");
@@ -79,18 +79,18 @@ const FindPasswordPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="flex flex-col min-h-screen bg-white">
       <Header />
       
-      <main className="flex-1 flex items-center justify-center py-10 px-4">
+      <main className="flex flex-1 justify-center items-center px-4 py-10">
         <div className="w-full max-w-sm">
           {/* 제목 */}
-          <h1 className="text-2xl font-medium text-gray-800 mb-9 text-center">
+          <h1 className="mb-9 text-2xl font-medium text-center text-gray-800">
             비밀번호 관리
           </h1>
 
           {/* 모드 선택 */}
-          <div className="mb-6 flex gap-2 border-b border-gray-200">
+          <div className="flex gap-2 mb-6 border-b border-gray-200">
             <button
               onClick={() => setMode("temp")}
               className={`px-4 py-2 font-medium transition ${
@@ -134,7 +134,7 @@ const FindPasswordPage = () => {
 
                 {success && (
                   <div className="p-4 bg-green-50 rounded-lg">
-                    <p className="text-sm font-medium text-green-800 mb-2">발급 완료</p>
+                    <p className="mb-2 text-sm font-medium text-green-800">발급 완료</p>
                     <p className="text-sm text-green-700 break-all">{success}</p>
                   </div>
                 )}
@@ -157,7 +157,7 @@ const FindPasswordPage = () => {
               <>
                 {/* 비밀번호 변경 */}
                 <div>
-                  <label className="block mb-1 font-medium text-xs text-gray-800">현재 비밀번호</label>
+                  <label className="block mb-1 text-xs font-medium text-gray-800">현재 비밀번호</label>
                   <InputBox
                     type="password"
                     value={currentPassword}
@@ -168,7 +168,7 @@ const FindPasswordPage = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-1 font-medium text-xs text-gray-800">새 비밀번호</label>
+                  <label className="block mb-1 text-xs font-medium text-gray-800">새 비밀번호</label>
                   <InputBox
                     type="password"
                     value={newPassword}
@@ -179,7 +179,7 @@ const FindPasswordPage = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-1 font-medium text-xs text-gray-800">새 비밀번호 확인</label>
+                  <label className="block mb-1 text-xs font-medium text-gray-800">새 비밀번호 확인</label>
                   <InputBox
                     type="password"
                     value={newPasswordCheck}
@@ -216,7 +216,7 @@ const FindPasswordPage = () => {
             <div>
               <button
                 onClick={() => navigate("/login")}
-                className="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
+                className="px-4 py-2 w-full text-sm font-medium text-gray-700 bg-gray-100 rounded-lg transition hover:bg-gray-200"
               >
                 로그인 페이지로 돌아가기
               </button>

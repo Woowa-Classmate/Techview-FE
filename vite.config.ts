@@ -7,8 +7,9 @@ import path from 'path'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    port: 80,
-    strictPort: false,
+    port: 3000,
+    strictPort: true, 
+    host: true, // 외부 접근 허용
     proxy: {
       '/api': {
         target: 'http://localhost:8080',

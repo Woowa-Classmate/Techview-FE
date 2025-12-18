@@ -42,7 +42,7 @@ export const useMediaRecorder = (options: UseMediaRecorderOptions = {}) => {
         streamRef.current?.getTracks().forEach((track) => track.stop());
       };
 
-      mediaRecorder.onerror = (event) => {
+      mediaRecorder.onerror = () => {
         options.onError?.(new Error("MediaRecorder error"));
       };
 

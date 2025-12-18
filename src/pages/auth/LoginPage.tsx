@@ -5,11 +5,12 @@ import Footer from "@/components/layout/Footer";
 import InputBox from "@/components/input/InputBox";
 import DefaultButton from "@/components/button/DefaultButton";
 import SuccessModal from "@/components/modal/SuccessModal";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuthStore } from "@/stores/authStore";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { login, user } = useAuth();
+  const login = useAuthStore((state) => state.login);
+  const user = useAuthStore((state) => state.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");

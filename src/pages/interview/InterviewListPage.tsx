@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import InterviewFeedbackPage from "./InterviewFeedbackPage";
 
 interface InterviewRecord {
   id: string;
@@ -21,7 +20,7 @@ interface InterviewRecord {
 
 const InterviewListPage = () => {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const selectedId = searchParams.get("id");
   const sessionId = searchParams.get("sessionId");
 
@@ -98,7 +97,7 @@ const InterviewListPage = () => {
     navigate(`/interview/feedback?${params.toString()}`);
   };
 
-  const selectedInterview = interviews.find((i) => i.id === selectedId);
+  // const selectedInterview = interviews.find((i) => i.id === selectedId);
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -147,9 +146,9 @@ const InterviewListPage = () => {
                         } ${selectedId === interview.id ? "ring-2 ring-blue-500" : ""}`}
                       >
                         {/* 썸네일 */}
-                        <div className="relative mb-3 aspect-video bg-gray-900 rounded-lg overflow-hidden">
+                        <div className="overflow-hidden relative mb-3 bg-gray-900 rounded-lg aspect-video">
                           {interview.status === "failed" ? (
-                            <div className="flex items-center justify-center w-full h-full bg-gray-800">
+                            <div className="flex justify-center items-center w-full h-full bg-gray-800">
                               <div className="text-center">
                                 <svg
                                   className="mx-auto mb-2 w-16 h-16 text-red-500"
@@ -169,7 +168,7 @@ const InterviewListPage = () => {
                               </div>
                             </div>
                           ) : (
-                            <div className="flex items-center justify-center w-full h-full bg-gray-800 group-hover:bg-gray-700 transition">
+                            <div className="flex justify-center items-center w-full h-full bg-gray-800 transition group-hover:bg-gray-700">
                               <svg className="w-16 h-16 text-white opacity-50" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8 5v14l11-7z" />
                               </svg>
@@ -177,7 +176,7 @@ const InterviewListPage = () => {
                           )}
 
                           {/* 재생 시간 */}
-                          <div className="absolute bottom-2 right-2 px-2 py-1 text-xs font-medium text-white bg-black bg-opacity-70 rounded">
+                          <div className="absolute right-2 bottom-2 px-2 py-1 text-xs font-medium text-white bg-black bg-opacity-70 rounded">
                             {formatDuration(interview.duration)}
                           </div>
                         </div>

@@ -9,6 +9,8 @@ interface User {
   id: string;
   email: string;
   name: string;
+  authority?: 'USER' | 'ADMIN';
+  role?: 'USER' | 'ADMIN';
 }
 
 interface AuthState {
@@ -56,6 +58,8 @@ export const useAuthStore = create<AuthState>()(
                 id: userInfo.id,
                 email: userInfo.email,
                 name: userInfo.name,
+                authority: userInfo.authority || userInfo.role,
+                role: userInfo.role || userInfo.authority,
               },
               isAuthenticated: true,
             });
@@ -66,6 +70,8 @@ export const useAuthStore = create<AuthState>()(
                 id: "1",
                 email,
                 name: email.split("@")[0] || "사용자",
+                authority: 'USER',
+                role: 'USER',
               },
               isAuthenticated: true,
             });
@@ -108,6 +114,8 @@ export const useAuthStore = create<AuthState>()(
                 id: userInfo.id,
                 email: userInfo.email,
                 name: userInfo.name,
+                authority: userInfo.authority || userInfo.role,
+                role: userInfo.role || userInfo.authority,
               },
               isAuthenticated: true,
             });
@@ -118,6 +126,8 @@ export const useAuthStore = create<AuthState>()(
                 id: "1",
                 email,
                 name,
+                authority: 'USER',
+                role: 'USER',
               },
               isAuthenticated: true,
             });
@@ -142,6 +152,8 @@ export const useAuthStore = create<AuthState>()(
               id: userInfo.id,
               email: userInfo.email,
               name: userInfo.name,
+              authority: userInfo.authority || userInfo.role,
+              role: userInfo.role || userInfo.authority,
             },
             isAuthenticated: true,
           });

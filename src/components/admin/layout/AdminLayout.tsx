@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { useAdminHeader } from '@/contexts/AdminHeaderContext'
 import { TopBar } from './TopBar'
 import { AppSidebar } from './AppSidebar'
-import { UsersIcon, ActivityIcon, MissionIcon } from './AppSidebar'
+import { UsersIcon, ActivityIcon, MissionIcon, BoardIcon } from './AppSidebar'
 
 interface AdminLayoutProps {
   children?: ReactNode
@@ -16,19 +16,21 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
 
   const currentPageTitle = () => {
     if (location.pathname.includes('/users')) return '사용자'
-    if (location.pathname.includes('/cards')) return '미션'
+    if (location.pathname.includes('/missions')) return '미션'
+    if (location.pathname.includes('/board')) return '게시판'
     if (location.pathname.includes('/behavior')) return '고객 행동 분석'
     return '미션'
   }
 
   const currentPageIcon = () => {
     if (location.pathname.includes('/users')) return UsersIcon
-    if (location.pathname.includes('/cards')) return MissionIcon
+    if (location.pathname.includes('/missions')) return MissionIcon
+    if (location.pathname.includes('/board')) return BoardIcon
     if (location.pathname.includes('/behavior')) return ActivityIcon
     return MissionIcon
   }
 
-  const showActionButtons = location.pathname.includes('/cards') || location.pathname.includes('/users')
+  const showActionButtons = location.pathname.includes('/missions') || location.pathname.includes('/users')
   const isUsersPage = location.pathname.includes('/users')
 
   return (

@@ -441,4 +441,3 @@ const PositionQuestionPage = () => {
 };
 
 export default PositionQuestionPage;
-

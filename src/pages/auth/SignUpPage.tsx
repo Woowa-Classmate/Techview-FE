@@ -4,12 +4,12 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import InputBox from "@/components/input/InputBox";
 import DefaultButton from "@/components/button/DefaultButton";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuthStore } from "@/stores/authStore";
 import { isValidEmail, isValidPassword } from "@/utils/validation";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const signup = useAuthStore((state) => state.signup);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");

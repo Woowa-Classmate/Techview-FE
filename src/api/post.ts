@@ -5,6 +5,7 @@ export interface CreatePostRequest {
   content: string;
   name?: string;
   password?: string;
+  isNotice?: boolean;
 }
 
 export interface Post {

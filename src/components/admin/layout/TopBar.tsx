@@ -1,7 +1,7 @@
-import { useState } from 'react'
 import { useAdminAuthStore } from '@/stores/adminAuthStore'
 import { useNavigate } from 'react-router-dom'
 import LogoutModal from '@/components/modal/LogoutModal'
+import { useState } from 'react'
 
 interface TopBarProps {
   onMenuClick: () => void
@@ -54,16 +54,16 @@ export function TopBar({ onMenuClick, title, titleIcon: TitleIcon, showActionBut
         {title && (
           <div className="flex gap-2 items-center min-w-0">
             {TitleIcon ? (
-              <TitleIcon className="flex-shrink-0 w-5 h-5 text-gray-900 dark:text-white" />
+              <TitleIcon className="shrink-0 w-5 h-5 text-gray-900 dark:text-white" />
             ) : (
-              <ShoppingBag className="flex-shrink-0 w-5 h-5 text-gray-900 dark:text-white" />
+              <ShoppingBag className="shrink-0 w-5 h-5 text-gray-900 dark:text-white" />
             )}
             <span className="text-base font-semibold text-gray-900 truncate dark:text-white">{title}</span>
           </div>
         )}
       </div>
 
-      <div className="flex flex-shrink-0 gap-2 items-center">
+      <div className="flex shrink-0 gap-2 items-center">
         {showActionButtons && (
           <>
             {onCreate && (
@@ -134,3 +134,4 @@ function ShoppingBag({ className }: { className?: string }) {
     </svg>
   )
 }
+

@@ -84,8 +84,9 @@ export const getQuestionRecommendations = async (
     return response.data;
   }
   // 페이지네이션된 응답인 경우 (예: { content: [...], totalElements: ... })
-  if (response.data && typeof response.data === 'object' && 'content' in response.data && Array.isArray(response.data.content)) {
-    return response.data.content;
+  const responseData = response.data as any;
+  if (responseData && typeof responseData === 'object' && 'content' in responseData && Array.isArray(responseData.content)) {
+    return responseData.content;
   }
   console.warn('예상치 못한 응답 형식:', response.data);
   return [];
@@ -120,8 +121,9 @@ export const getQuestionsByPosition = async (
     return response.data;
   }
   // 페이지네이션된 응답인 경우 (예: { content: [...], totalElements: ... })
-  if (response.data && typeof response.data === 'object' && 'content' in response.data && Array.isArray(response.data.content)) {
-    return response.data.content;
+  const responseData = response.data as any;
+  if (responseData && typeof responseData === 'object' && 'content' in responseData && Array.isArray(responseData.content)) {
+    return responseData.content;
   }
   console.warn('예상치 못한 응답 형식:', response.data);
   return [];
