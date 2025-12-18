@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { getQuestionById, QuestionDetail } from "@/api/question";
 
 interface Question {
   id: number;
@@ -11,17 +10,6 @@ interface Question {
   tags: string[];
   timeLimit?: number; // 초 단위
 }
-
-// QuestionDetail을 Question으로 변환
-const convertQuestionDetail = (detail: QuestionDetail): Question => {
-  return {
-    id: detail.id,
-    question: detail.question,
-    difficulty: detail.difficulty,
-    tags: [...(detail.categories || []), ...(detail.skills || [])],
-    timeLimit: 180, // 기본값 3분
-  };
-};
 
 const InterviewPage = () => {
   const { type, id } = useParams<{ type: string; id: string }>();
@@ -50,39 +38,107 @@ const InterviewPage = () => {
   // 질문 데이터 로드
   useEffect(() => {
     const loadQuestions = async () => {
-      if (questionIds.length === 0) {
-        setQuestions([]);
-        return;
+      console.log("질문 로드 시작:", { questionIds, type, id, stacks });
+      
+      // 포지션별 질문 데이터
+      const positionQuestionsMap: Record<string, Array<{ id: number; question: string; difficulty: string; tags: string[] }>> = {
+        frontend: [
+          { id: 1, question: "em과 rem의 차이를 설명해 주세요.", difficulty: "Easy", tags: ["CSS", "웹"] },
+          { id: 2, question: "inline과 inline-block의 차이점은 무엇인가요?", difficulty: "Easy", tags: ["CSS"] },
+          { id: 3, question: "크로스 브라우징 이슈 경험이 있나요? 있다면 해결은 어떻게 하였나요?", difficulty: "Easy", tags: ["웹"] },
+        ],
+        backend: [
+          { id: 1, question: "RESTful API의 특징과 장점을 설명해주세요.", difficulty: "Medium", tags: ["API", "Backend"] },
+          { id: 2, question: "동기와 비동기의 차이점을 설명해주세요.", difficulty: "Easy", tags: ["Backend"] },
+        ],
+        android: [
+          { id: 1, question: "안드로이드의 생명주기(Lifecycle)에 대해 설명해주세요.", difficulty: "Medium", tags: ["Android"] },
+        ],
+        ios: [
+          { id: 1, question: "iOS의 메모리 관리 방식인 ARC에 대해 설명해주세요.", difficulty: "Medium", tags: ["iOS"] },
+        ],
+        devops: [
+          { id: 1, question: "CI/CD 파이프라인의 개념과 장점을 설명해주세요.", difficulty: "Medium", tags: ["DevOps"] },
+        ],
+      };
+
+      // 기술 스택별 질문 데이터
+      const techStackQuestionsMap: Record<string, Array<{ id: number; question: string; difficulty: string; tags: string[] }>> = {
+        react: [
+          { id: 1, question: "React의 Virtual DOM이란 무엇이고, 왜 사용하나요?", difficulty: "Medium", tags: ["React", "Virtual DOM"] },
+          { id: 2, question: "useState와 useEffect의 차이점을 설명해주세요.", difficulty: "Easy", tags: ["React", "Hooks"] },
+          { id: 3, question: "React의 렌더링 최적화 방법을 설명해주세요.", difficulty: "Hard", tags: ["React", "Performance"] },
+        ],
+        vue: [
+          { id: 4, question: "Vue의 반응성 시스템(Reactivity System)에 대해 설명해주세요.", difficulty: "Medium", tags: ["Vue", "Reactivity"] },
+          { id: 5, question: "Vue 2와 Vue 3의 주요 차이점은 무엇인가요?", difficulty: "Medium", tags: ["Vue"] },
+        ],
+        nodejs: [
+          { id: 6, question: "Node.js의 이벤트 루프(Event Loop)에 대해 설명해주세요.", difficulty: "Hard", tags: ["Node.js", "Event Loop"] },
+          { id: 7, question: "비동기 처리에서 Promise와 async/await의 차이점은?", difficulty: "Medium", tags: ["Node.js", "Async"] },
+        ],
+        python: [
+          { id: 8, question: "Python의 GIL(Global Interpreter Lock)에 대해 설명해주세요.", difficulty: "Hard", tags: ["Python"] },
+          { id: 9, question: "리스트 컴프리헨션과 일반 반복문의 차이점은?", difficulty: "Easy", tags: ["Python"] },
+        ],
+        typescript: [
+          { id: 10, question: "TypeScript의 타입 시스템에 대해 설명해주세요.", difficulty: "Medium", tags: ["TypeScript"] },
+          { id: 11, question: "인터페이스와 타입 별칭의 차이점은 무엇인가요?", difficulty: "Easy", tags: ["TypeScript"] },
+        ],
+      };
+
+      const loadedQuestions: Question[] = [];
+
+      if (type === "position" && id) {
+        // 포지션 질문 로드
+        const positionQuestions = positionQuestionsMap[id] || [];
+        questionIds.forEach((qId) => {
+          const question = positionQuestions.find((q) => q.id === qId);
+          if (question) {
+            loadedQuestions.push({
+              id: question.id,
+              question: question.question,
+              difficulty: question.difficulty,
+              tags: question.tags,
+              timeLimit: 180,
+            });
+          }
+        });
+      } else if (type === "tech-stack" && stacks.length > 0) {
+        // 기술 스택 질문 로드
+        const allTechQuestions: Array<{ id: number; question: string; difficulty: string; tags: string[] }> = [];
+        stacks.forEach((stack) => {
+          const stackQuestions = techStackQuestionsMap[stack] || [];
+          allTechQuestions.push(...stackQuestions);
+        });
+
+        // 중복 제거
+        const uniqueTechQuestions = Array.from(
+          new Map(allTechQuestions.map((q) => [q.id, q])).values()
+        );
+
+        questionIds.forEach((qId) => {
+          const question = uniqueTechQuestions.find((q) => q.id === qId);
+          if (question) {
+            loadedQuestions.push({
+              id: question.id,
+              question: question.question,
+              difficulty: question.difficulty,
+              tags: question.tags,
+              timeLimit: 180,
+            });
+          }
+        });
       }
 
-      try {
-        console.log("질문 로드 시작:", { questionIds, type, id });
-        
-        // 선택한 질문 ID들로 실제 API에서 질문 데이터 가져오기
-        const questionPromises = questionIds.map((qId) => getQuestionById(qId));
-        const questionDetails = await Promise.all(questionPromises);
-        
-        // QuestionDetail을 Question으로 변환
-        const loadedQuestions: Question[] = questionDetails.map(convertQuestionDetail);
-        
-        console.log("로드된 질문:", loadedQuestions);
-        setQuestions(loadedQuestions);
-      } catch (error: any) {
-        console.error("질문 로드 실패:", error);
-        // 에러 발생 시 빈 배열 설정
-        setQuestions([]);
-        
-        // 401 에러인 경우
-        if (error?.response?.status === 401) {
-          alert("질문을 조회하려면 로그인이 필요합니다.");
-        } else {
-          alert("질문을 불러오는데 실패했습니다.");
-        }
-      }
+      console.log("로드된 질문:", loadedQuestions);
+      setQuestions(loadedQuestions);
     };
 
-    loadQuestions();
-  }, [questionIds, type, id]);
+    if (questionIds.length > 0) {
+      loadQuestions();
+    }
+  }, [questionIds, type, id, stacks]);
 
   // 페이지 진입 시 자동으로 카운트다운 시작
   useEffect(() => {
@@ -264,7 +320,7 @@ const InterviewPage = () => {
     const sessionId = `session_${Date.now()}`;
     
     // 선택한 질문들에 대한 면접 기록 생성
-    const interviewRecords = questions.map((q) => {
+    const interviewRecords = questions.map((q, index) => {
       const duration = Math.floor(Math.random() * 60) + 10; // 10-70초 랜덤
       const isFailed = duration < 10;
       
@@ -418,14 +474,14 @@ const InterviewPage = () => {
               <div className="flex flex-wrap gap-2 ml-8">
                 <span
                   className={`px-3 py-1 text-xs rounded ${
-                    currentQuestion.difficulty === "EASY"
+                    currentQuestion.difficulty === "Easy"
                       ? "bg-green-100 text-green-700"
-                      : currentQuestion.difficulty === "MEDIUM"
+                      : currentQuestion.difficulty === "Medium"
                       ? "bg-yellow-100 text-yellow-700"
                       : "bg-red-100 text-red-700"
                   }`}
                 >
-                  #{currentQuestion.difficulty === "EASY" ? "Easy" : currentQuestion.difficulty === "MEDIUM" ? "Medium" : "Hard"}
+                  #{currentQuestion.difficulty}
                 </span>
                 {currentQuestion.tags.map((tag) => (
                   <span key={tag} className="px-3 py-1 text-xs text-gray-300 bg-gray-700 rounded">

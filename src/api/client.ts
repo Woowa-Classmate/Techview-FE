@@ -16,14 +16,10 @@ export const apiClient = axios.create({
 // Request interceptor - Access Token 추가
 apiClient.interceptors.request.use(
   (config) => {
-    // 인증이 필요 없는 엔드포인트 (토큰을 절대 추가하지 않음)
-    const publicEndpoints = [
-      "/auth/login", 
-      "/auth/signup"
-    ];
+    // 인증이 필요 없는 엔드포인트는 토큰을 추가하지 않음
+    const publicEndpoints = ["/auth/login", "/auth/signup"];
     const isPublicEndpoint = publicEndpoints.some(endpoint => config.url?.includes(endpoint));
     
-    // 공개 엔드포인트가 아니면 토큰 추가 시도
     if (!isPublicEndpoint) {
       let token = localStorage.getItem("accessToken");
       
@@ -44,7 +40,6 @@ apiClient.interceptors.request.use(
         tokenType: typeof token,
       });
       
-      // 토큰이 있으면 항상 추가 (백엔드가 선택적으로 인증을 요구할 수 있음)
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
         console.log("Authorization 헤더 추가됨:", `Bearer ${token.substring(0, 20)}...`);
@@ -66,11 +61,6 @@ apiClient.interceptors.response.use(
     return response;
   },
   async (error) => {
-    // WWW-Authenticate 헤더 제거 (브라우저 기본 인증 모달 방지)
-    if (error.response?.headers?.['www-authenticate']) {
-      delete error.response.headers['www-authenticate'];
-    }
-    
     const originalRequest = error.config;
 
     // 401 또는 403 에러 처리

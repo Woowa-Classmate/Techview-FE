@@ -79,3 +79,4 @@ const LogoutModal = ({ isOpen, onClose, onConfirm, redirectPath = "/" }: LogoutM
 
 export default LogoutModal;
 
+

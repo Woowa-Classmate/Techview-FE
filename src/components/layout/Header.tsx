@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "@/stores/authStore";
-import LogoutModal from "@/components/modal/LogoutModal";
 import techviewLogo from "../../assets/logo/techview_logo.png";
 
 const Header = () => {
   const user = useAuthStore((state) => state.user);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const logout = useAuthStore((state) => state.logout);
   const refreshUser = useAuthStore((state) => state.refreshUser);
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   // 페이지 로드 시 user 정보 확인 및 갱신
   useEffect(() => {
@@ -19,8 +18,8 @@ const Header = () => {
     }
   }, [user, refreshUser]);
 
-  const handleLogout = () => {
-    setShowLogoutModal(true);
+  const handleLogout = async () => {
+    await logout();
   };
 
   return (
@@ -109,10 +108,6 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <LogoutModal 
-        isOpen={showLogoutModal} 
-        onClose={() => setShowLogoutModal(false)} 
-      />
     </header>
   );
 };

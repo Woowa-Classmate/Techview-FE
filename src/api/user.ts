@@ -87,7 +87,7 @@ export const getMyInfo = async (): Promise<UserInfo> => {
       );
       
       if (currentUser) {
-        roleFromAdminApi = currentUser.authority;
+        roleFromAdminApi = (currentUser as any).authority || (currentUser as any).role;
         console.log("관리자 API에서 찾은 사용자 권한:", roleFromAdminApi);
       } else {
         console.warn("관리자 API에서 현재 사용자를 찾을 수 없음");
