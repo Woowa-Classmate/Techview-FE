@@ -33,15 +33,28 @@ const BoardPage = () => {
   const user = useAuthStore((state) => state.user);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const refreshUser = useAuthStore((state) => state.refreshUser);
+  const isAdmin = user?.authority === 'ADMIN' || user?.role === 'ADMIN';
+
+  // 디버깅: 사용자 정보 확인
+  useEffect(() => {
+    console.log('BoardPage - User info:', {
+      user,
+      isAuthenticated,
+      authority: user?.authority,
+      role: user?.role,
+      isAdmin,
+      userObject: JSON.stringify(user, null, 2),
+    });
+  }, [user, isAuthenticated, isAdmin]);
 
   // 페이지 로드 시 user 정보 확인 및 갱신
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    if (token && !user) {
-      // 토큰이 있지만 user 정보가 없으면 갱신 시도
+    if (token) {
+      // 토큰이 있으면 사용자 정보 갱신 (권한 정보 포함)
       refreshUser();
     }
-  }, [user, refreshUser]);
+  }, [refreshUser]);
   const [selectedCategory, setSelectedCategory] = useState<PostCategory>("notice");
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -57,7 +70,7 @@ const BoardPage = () => {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [newComment, setNewComment] = useState("");
   const [commentPassword, setCommentPassword] = useState("");
-  const [isLoadingPost, setIsLoadingPost] = useState(false);
+  const [_isLoadingPost, setIsLoadingPost] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletePassword, setDeletePassword] = useState("");
   const [postToDelete, setPostToDelete] = useState<number | null>(null);
@@ -90,7 +103,7 @@ const BoardPage = () => {
                 createdAt: post.createAt,
                 views: post.views || 0,
                 likes: post.likeCount,
-                comments: apiComments.map((comment) => ({
+                comments: apiComments.map((comment: commentApi.Comment) => ({
                   id: comment.commentId,
                   author: comment.userName,
                   content: comment.content,
@@ -163,7 +176,7 @@ const BoardPage = () => {
     setIsSubmitting(true);
     try {
       // API 호출 데이터 준비
-      // API 스펙: 인증 필요, title, content, password만 필요 (name 불필요)
+      // API 스펙: 인증 필요, title, content, password, isNotice 필요
       const requestData: postApi.CreatePostRequest = {
         title: newPost.title.trim(),
         content: newPost.content.trim(),
@@ -179,6 +192,16 @@ const BoardPage = () => {
       
       requestData.password = userPassword;
 
+      // 공지사항 카테고리인 경우 isNotice: true 설정
+      // isNotice: true + ADMIN 권한 → 공지사항 작성 성공
+      // isNotice: true + 일반 사용자 → 403 Forbidden 에러
+      // isNotice: false 또는 생략 → 일반 게시글
+      if (newPost.category === "notice") {
+        requestData.isNotice = true;
+      } else {
+        requestData.isNotice = false;
+      }
+
       console.log("게시글 작성 요청 데이터:", requestData);
       const token = localStorage.getItem("accessToken");
       console.log("인증 상태:", { 
@@ -192,7 +215,7 @@ const BoardPage = () => {
 
       // 성공 시 게시글 목록 다시 로드
       const apiPosts = await postApi.getPosts();
-      const convertedPosts: Post[] = apiPosts.map((post) => ({
+      const convertedPosts: Post[] = apiPosts.map((post: postApi.Post) => ({
         id: post.postId,
         category: "free" as PostCategory,
         title: post.title,
@@ -255,7 +278,7 @@ const BoardPage = () => {
       
       // 성공 시 UI 업데이트
       setPosts(
-        posts.map((post) => {
+        posts.map((post: Post) => {
           if (post.id === postId) {
             return {
               ...post,
@@ -295,7 +318,7 @@ const BoardPage = () => {
       
       // 성공 시 UI 업데이트
       setPosts(
-        posts.map((post) => {
+        posts.map((post: Post) => {
           if (post.id === postId) {
             return {
               ...post,
@@ -348,7 +371,7 @@ const BoardPage = () => {
 
       // 성공 시 댓글 목록 다시 로드
       const apiComments = await commentApi.getComments(selectedPost.id);
-      const convertedComments: Comment[] = apiComments.map((comment) => ({
+      const convertedComments: Comment[] = apiComments.map((comment: commentApi.Comment) => ({
         id: comment.commentId,
         author: comment.userName,
         content: comment.content,
@@ -361,7 +384,7 @@ const BoardPage = () => {
       };
 
       setSelectedPost(updatedPost);
-      setPosts(posts.map((post) => (post.id === selectedPost.id ? updatedPost : post)));
+      setPosts(posts.map((post: Post) => (post.id === selectedPost.id ? updatedPost : post)));
       setNewComment("");
       setCommentPassword("");
     } catch (error: any) {
@@ -414,7 +437,7 @@ const BoardPage = () => {
       // 성공 시 게시글 상세 정보 다시 로드
       const updatedPostDetail = await postApi.getPost(selectedPost.id);
       const apiComments = await commentApi.getComments(selectedPost.id);
-      const convertedComments: Comment[] = apiComments.map((comment) => ({
+      const convertedComments: Comment[] = apiComments.map((comment: commentApi.Comment) => ({
         id: comment.commentId,
         author: comment.userName,
         content: comment.content,
@@ -522,7 +545,7 @@ const BoardPage = () => {
       
       // 성공 시 댓글 목록 다시 로드
       const apiComments = await commentApi.getComments(selectedPost.id);
-      const convertedComments: Comment[] = apiComments.map((comment) => ({
+      const convertedComments: Comment[] = apiComments.map((comment: commentApi.Comment) => ({
         id: comment.commentId,
         author: comment.userName,
         content: comment.content,
@@ -535,7 +558,7 @@ const BoardPage = () => {
       };
 
       setSelectedPost(updatedPost);
-      setPosts(posts.map((post) => (post.id === selectedPost.id ? updatedPost : post)));
+      setPosts(posts.map((post: Post) => (post.id === selectedPost.id ? updatedPost : post)));
       setShowCommentDeleteModal(false);
       setCommentDeletePassword("");
       setCommentToDelete(null);
@@ -576,7 +599,7 @@ const BoardPage = () => {
 
       // 성공 시 댓글 목록 다시 로드
       const apiComments = await commentApi.getComments(selectedPost.id);
-      const convertedComments: Comment[] = apiComments.map((comment) => ({
+      const convertedComments: Comment[] = apiComments.map((comment: commentApi.Comment) => ({
         id: comment.commentId,
         author: comment.userName,
         content: comment.content,
@@ -589,7 +612,7 @@ const BoardPage = () => {
       };
 
       setSelectedPost(updatedPost);
-      setPosts(posts.map((post) => (post.id === selectedPost.id ? updatedPost : post)));
+      setPosts(posts.map((post: Post) => (post.id === selectedPost.id ? updatedPost : post)));
       setEditingCommentId(null);
       setEditComment({ content: "", password: "" });
       alert("댓글이 수정되었습니다.");
@@ -660,8 +683,8 @@ const BoardPage = () => {
             </button>
           </div>
 
-          {/* 글쓰기 버튼 - 자유게시판에서만 표시 */}
-          {!isWriting && !selectedPost && selectedCategory === "free" && (
+          {/* 글쓰기 버튼 - 자유게시판 또는 관리자의 경우 공지사항에서도 표시 */}
+          {!isWriting && !selectedPost && (selectedCategory === "free" || (selectedCategory === "notice" && isAdmin)) && (
             <div className="flex justify-end mb-6">
               <button
                 onClick={() => {
@@ -672,7 +695,7 @@ const BoardPage = () => {
                     content: "",
                     name: "",
                     password: "",
-                    category: "free", // 일반 유저는 기본값을 자유게시판으로
+                    category: selectedCategory, // 선택한 카테고리로 설정
                   });
                 }}
                 className="px-4 py-2 font-medium text-white bg-amber-500 rounded-full transition hover:bg-amber-500"
@@ -695,12 +718,12 @@ const BoardPage = () => {
                       setNewPost({ ...newPost, category: e.target.value as PostCategory })
                     }
                     className="px-4 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                    disabled={true} // 일반 유저는 자유게시판만 선택 가능
+                    disabled={!isAdmin} // 관리자가 아니면 자유게시판만 선택 가능
                   >
                     <option value="free">자유게시판</option>
-                    {/* 관리자만 공지사항 선택 가능 - 추후 권한 체크 추가 */}
+                    {isAdmin && <option value="notice">공지사항</option>}
                   </select>
-                  {!isAuthenticated && (
+                  {!isAdmin && (
                     <span className="text-xs text-gray-500">
                       일반 유저는 자유게시판만 작성 가능합니다.
                     </span>
@@ -825,7 +848,7 @@ const BoardPage = () => {
                         // 댓글 목록 가져오기
                         const apiComments = await commentApi.getComments(post.id);
                         // 댓글을 UI 형식으로 변환
-                        const convertedComments: Comment[] = apiComments.map((comment) => ({
+                        const convertedComments: Comment[] = apiComments.map((comment: commentApi.Comment) => ({
                           id: comment.commentId,
                           author: comment.userName,
                           content: comment.content,
@@ -1138,7 +1161,7 @@ const BoardPage = () => {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {selectedPost.comments.map((comment) => (
+                    {selectedPost.comments.map((comment: Comment) => (
                       <div key={comment.id} className="flex gap-3">
                         <div className="flex flex-shrink-0 justify-center items-center w-8 h-8 bg-gray-200 rounded-full">
                           <span className="text-xs font-medium text-gray-600">

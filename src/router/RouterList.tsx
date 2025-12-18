@@ -112,7 +112,7 @@ export const routerList: RouteConfig[] = [
     label: "관리자 로그인",
   },
   {
-    path: "/admin",
+    path: "/admin/*",
     element: <AdminPage />,
     label: "관리자",
   },

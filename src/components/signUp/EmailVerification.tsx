@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import InputBox from "../input/InputBox";
 import SuccessModal from "../modal/SuccessModal";
-import axiosInstance from "@/api/axiosInstance";
+import { apiClient } from "@/api/client";
 
 interface EmailVerificationProps {
   email: string;
@@ -58,7 +58,7 @@ const EmailVerification = ({ email, setEmail, onVerified }: EmailVerificationPro
     }
 
     try {
-      const res = await axiosInstance.get("/auth/idCheck", {
+      const res = await apiClient.get("/auth/idCheck", {
         params: { memberId: email },
         headers: { Authorization: "" } //토큰 제거
       });
@@ -92,7 +92,7 @@ const EmailVerification = ({ email, setEmail, onVerified }: EmailVerificationPro
     }
 
     try {
-      await axiosInstance.post("/auth/send-verification",
+      await apiClient.post("/auth/send-verification",
         { email: email },
         { headers: { Authorization: "" } }  // 수정
       );
@@ -130,7 +130,7 @@ const EmailVerification = ({ email, setEmail, onVerified }: EmailVerificationPro
     }
 
     try {
-      const res = await axiosInstance.post("/auth/verify-email", 
+      const res = await apiClient.post("/auth/verify-email", 
         { email: email, code: inputCode },
         { headers: { Authorization: "" } }   // 수정
       );

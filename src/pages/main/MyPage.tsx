@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuthStore } from "@/stores/authStore";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import InputBox from "@/components/input/InputBox";
-import DefaultButton from "@/components/button/DefaultButton";
 import CheckButton from "@/components/button/CheckButton";
 import * as userApi from "@/api/user";
 
@@ -16,12 +15,14 @@ interface TechStack {
 }
 
 const MyPage = () => {
-  const { user, isAuthenticated, refreshUser } = useAuth();
+  const user = useAuthStore((state) => state.user);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const refreshUser = useAuthStore((state) => state.refreshUser);
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [isEditingName, setIsEditingName] = useState(false);
-  const [skills, setSkills] = useState<number[]>([]);
+  const [_skills, setSkills] = useState<number[]>([]);
   const [selectedStacks, setSelectedStacks] = useState<string[]>([]);
   const [categories, setCategories] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -186,7 +187,7 @@ const MyPage = () => {
       await userApi.updateMyInfo({ name });
       setIsEditingName(false);
       
-      // AuthContext의 사용자 정보 갱신
+      // Zustand store의 사용자 정보 갱신
       await refreshUser();
       
       setMessage({ type: "success", text: "이름이 수정되었습니다." });
@@ -228,20 +229,20 @@ const MyPage = () => {
     return techStacks.filter((stack) => stack.category === category);
   };
 
-  // 관심 분야 수정
-  const handleUpdateCategories = async (newCategories: number[]) => {
-    setIsSaving(true);
-    try {
-      await userApi.updateMyCategories({ categories: newCategories });
-      setCategories(newCategories);
-      setMessage({ type: "success", text: "관심 분야가 저장되었습니다." });
-      setTimeout(() => setMessage(null), 3000);
-    } catch (error: any) {
-      setMessage({ type: "error", text: error.response?.data?.message || "관심 분야 저장에 실패했습니다." });
-    } finally {
-      setIsSaving(false);
-    }
-  };
+  // 관심 분야 수정 (현재 사용되지 않음)
+  // const handleUpdateCategories = async (newCategories: number[]) => {
+  //   setIsSaving(true);
+  //   try {
+  //     await userApi.updateMyCategories({ categories: newCategories });
+  //     setCategories(newCategories);
+  //     setMessage({ type: "success", text: "관심 분야가 저장되었습니다." });
+  //     setTimeout(() => setMessage(null), 3000);
+  //   } catch (error: any) {
+  //     setMessage({ type: "error", text: error.response?.data?.message || "관심 분야 저장에 실패했습니다." });
+  //   } finally {
+  //     setIsSaving(false);
+  //   }
+  // };
 
   if (isLoading) {
     return (
