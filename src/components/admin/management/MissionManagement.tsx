@@ -31,7 +31,7 @@ import {
 } from '@/components/admin/ui/select'
 import { Textarea } from '@/components/admin/ui/textarea'
 
-export function CardManagement() {
+export function MissionManagement() {
   const { setActions } = useAdminHeader()
   const [missions, setMissions] = useState<ApiMission[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -370,14 +370,22 @@ export function CardManagement() {
               난이도
             </Label>
             <Select value={searchDifficulty} onValueChange={setSearchDifficulty}>
-              <SelectTrigger className="bg-white dark:bg-[#1a1a1a] border-gray-300 dark:border-[#2a2a2a] text-gray-900 dark:text-white h-10 text-sm">
+              <SelectTrigger className="bg-white dark:bg-[#1a1a1a] border-gray-300 dark:border-[#2a2a2a] text-gray-900 dark:text-white h-10 text-sm w-full">
                 <SelectValue placeholder="전체" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="ALL">전체</SelectItem>
-                <SelectItem value="EASY">Easy</SelectItem>
-                <SelectItem value="MEDIUM">Medium</SelectItem>
-                <SelectItem value="HARD">Hard</SelectItem>
+              <SelectContent className="bg-white dark:bg-[#1a1a1a] border-gray-300 dark:border-[#2a2a2a] text-gray-900 dark:text-white z-[100]">
+                <SelectItem value="ALL" className="text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">
+                  전체
+                </SelectItem>
+                <SelectItem value="EASY" className="text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">
+                  Easy
+                </SelectItem>
+                <SelectItem value="MEDIUM" className="text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">
+                  Medium
+                </SelectItem>
+                <SelectItem value="HARD" className="text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">
+                  Hard
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -549,10 +557,16 @@ export function CardManagement() {
                 <SelectTrigger className="bg-white dark:bg-[#1a1a1a] border-gray-300 dark:border-[#2a2a2a] text-gray-900 dark:text-white">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="EASY">Easy</SelectItem>
-                  <SelectItem value="MEDIUM">Medium</SelectItem>
-                  <SelectItem value="HARD">Hard</SelectItem>
+                <SelectContent className="bg-white dark:bg-[#1a1a1a] border-gray-300 dark:border-[#2a2a2a] text-gray-900 dark:text-white z-[100]">
+                  <SelectItem value="EASY" className="text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">
+                    Easy
+                  </SelectItem>
+                  <SelectItem value="MEDIUM" className="text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">
+                    Medium
+                  </SelectItem>
+                  <SelectItem value="HARD" className="text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">
+                    Hard
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -655,10 +669,16 @@ export function CardManagement() {
                 <SelectTrigger className="bg-white dark:bg-[#1a1a1a] border-gray-300 dark:border-[#2a2a2a] text-gray-900 dark:text-white">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="EASY">Easy</SelectItem>
-                  <SelectItem value="MEDIUM">Medium</SelectItem>
-                  <SelectItem value="HARD">Hard</SelectItem>
+                <SelectContent className="bg-white dark:bg-[#1a1a1a] border-gray-300 dark:border-[#2a2a2a] text-gray-900 dark:text-white z-[100]">
+                  <SelectItem value="EASY" className="text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">
+                    Easy
+                  </SelectItem>
+                  <SelectItem value="MEDIUM" className="text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">
+                    Medium
+                  </SelectItem>
+                  <SelectItem value="HARD" className="text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">
+                    Hard
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>

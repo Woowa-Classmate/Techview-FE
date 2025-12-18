@@ -10,9 +10,9 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
   const location = useLocation()
 
   const menuItems = [
-    { path: '/admin', label: '소비 패턴 분석', icon: DashboardIcon },
-    { path: '/admin/cards', label: '카드', icon: ShoppingBagIcon },
+    { path: '/admin/missions', label: '미션', icon: MissionIcon },
     { path: '/admin/users', label: '사용자', icon: UsersIcon },
+    { path: '/admin/board', label: '게시판', icon: BoardIcon },
     { path: '/admin/behavior', label: '고객 행동 분석', icon: ActivityIcon },
   ]
 
@@ -30,7 +30,7 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-[#0a0a0a] border-r border-gray-200 dark:border-[#1a1a1a] transition-transform duration-300 ${
+        className={`fixed inset-y-0 left-0 z-50 w-56 bg-white dark:bg-[#0a0a0a] border-r border-gray-200 dark:border-[#1a1a1a] transition-transform duration-300 ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
         style={{ zIndex: 50 }}
@@ -45,14 +45,14 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
                   navigate(item.path)
                   onClose()
                 }}
-                className={`flex items-center gap-4 px-6 py-5 font-medium transition-colors border-b border-gray-200 dark:border-[#1a1a1a] ${
+                className={`flex items-center gap-3 px-4 py-4 font-medium transition-colors border-b border-gray-200 dark:border-[#1a1a1a] ${
                   active 
                     ? 'bg-gray-100 dark:bg-[#1a1a1a] text-gray-900 dark:text-white' 
                     : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#1a1a1a] hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
-                <item.icon className="w-6 h-6" />
-                <span className="text-xl">{item.label}</span>
+                <item.icon className="w-5 h-5" />
+                <span className="text-base">{item.label}</span>
               </button>
             )
           })}
@@ -94,4 +94,20 @@ function ActivityIcon({ className }: { className?: string }) {
   )
 }
 
-export { DashboardIcon, ShoppingBagIcon, UsersIcon, ActivityIcon }
+function MissionIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+    </svg>
+  )
+}
+
+function BoardIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+    </svg>
+  )
+}
+
+export { DashboardIcon, ShoppingBagIcon, UsersIcon, ActivityIcon, MissionIcon, BoardIcon }
